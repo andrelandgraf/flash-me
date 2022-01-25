@@ -1,0 +1,15 @@
+.env
+wireguard.conf
+
+node_modules
+
+# those are built by postcss
+/app/styles
+
+/prisma/dev.db
+
+/.cache
+build
+/public/build
+.env
+.env.production
