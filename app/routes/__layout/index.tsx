@@ -126,7 +126,7 @@ export default function Index() {
         !!user && <ButtonLink to="/create">Create Flashcard!</ButtonLink>
       )}
       {!!publicFlashcards.length && (
-        <Section className="justify-center items-center">
+        <Section className="mt-10 lg:mt-20 justify-center items-center">
           <H2 className="mb-10">Public Flashcards</H2>
           <StackedCard
             flashcard={publicFlashcard}

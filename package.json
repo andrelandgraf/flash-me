@@ -15,7 +15,8 @@
     "deploy": "fly deploy --remote-only",
     "start": "remix-serve build",
     "status": "flyctl status",
-    "logs": "flyctl logs"
+    "logs": "flyctl logs",
+    "log:secrets": "flyctl config list"
   },
   "dependencies": {
     "@prisma/client": "^3.8.1",
