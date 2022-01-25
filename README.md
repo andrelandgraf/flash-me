@@ -4,6 +4,8 @@
 
 Flash Me! Learn through rehearsal. Create and study with flashcards online.
 
+[Go to Flash Me](https://flash-me.fly.dev/) and start learning with flashcards today!
+
 ## Motivation <img src="./public/light-bulb.png" alt="light bulb" style="width: 30px; height: 30px;">
 
 Flashcards are a great way to rehearse and learn. I constantly hear about awesome things in YouTube videos, podcasts, on Twitter, or by talking to people and I just wanted to create a place for myself where I can quickly and easily create flashcards for the things I'm learning.
