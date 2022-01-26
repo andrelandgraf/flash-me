@@ -1,0 +1,569 @@
+
+
+
+# Full stack web development with Remix
+
+## Hello World!
+
+Hey! I am Andre, a software engineer and student from Germany.
+
+Located in the Bay Area, I spend my time hiking
+and building cool things! Sometimes I study, too.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Introduction
+
+"Remix.run is a full stack web framework." - Remix.run website
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### My attempt to explain Remix:
+
+Full stack => Frontend + Backend.
+Remix starts in the middle between server & client.
+
+1️⃣ On the server: Remix sits on top of your server (any).
+
+For example:  
+express server =>
+@remix-run/express adapter =>
+remix framework
+
+2️⃣ The adapter "adapts" the server request. You work 
+in your Remix project with the APIs and conventions
+provided by Remix (always the same).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3️⃣ Remix server-side renders your React application.
+
+4️⃣ After the initial server-side render,
+Remix sends the response through the adapter back to your server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5️⃣ On the client: Remix sits on top of React (react-router)
+to manage how requests are sent back to the server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+But let's check out how the
+Remix team is explaining it: https://remix.run/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Shall we get started?
+
+Let's see if we can deploy a Remix app to fly.io in 3 minutes?
+
+(PS: I might screw this up!)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Cool, so we can deploy it to a lot of places.
+
+It is very fast.
+
+But how does it work?
+
+Let's go over the fundamentals!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Remix fundamentals
+
+- Introduction ✅
+- Loaders & useLoaderData
+- Forms
+- Actions & useActionData
+- Routes & nested routes 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Loaders
+
+Loaders (get) and Actions (post, put, delete, ...) run server-side.
+
+They live together with your route components.
+
+They receive a request:
+
+=> Request https://developer.mozilla.org/en-US/docs/Web/API/Request
+
+And you have to return a response: 
+
+=> Response https://developer.mozilla.org/en-US/docs/Web/API/Response
+
+(or json and Remix will make it a response)
+
+
+- See https://remix.run/
+
+
+
+
+
+
+
+
+
+## Remix fundamentals
+
+- Introduction ✅
+- Loaders & useLoaderData ✅
+- Forms
+- Actions & useActionData
+- Routes & nested routes 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Forms
+
+Remix uses a wrapper around the HTML form element to make requests.
+
+No useEffect needed.
+
+It even works without JavaScript
+or before JavaScript is loaded on the client
+(called progressive enhancement)
+
+=> https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement
+
+- See https://remix.run/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Remix fundamentals
+
+- Introduction ✅
+- Loaders & useLoaderData ✅
+- Forms ✅
+- Actions & useActionData 
+- Routes & nested routes 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Actions
+
+Form post, delete, and put requests end up in your action.
+
+Your action lives together with your loader in your route files.
+
+Again, you return a Response (e.g. a redirect to a new page) 
+or just a json object and Remix helps you out from there.
+
+Heck, you can use loaders and actions to create a REST API, too!
+
+- See https://remix.run/
+- See ./app/routes/__layout/create.tsx
+  for an example of useActionData()
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Remix fundamentals
+
+- Introduction ✅
+- Loaders & useLoaderData ✅
+- Forms ✅
+- Actions & useActionData ✅
+- Routes & nested routes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Routes
+
+Remix uses react-router under the hood. 
+
+You can define routes in your routes folder. 
+
+Nested routes render within their parent's <Outlet />.
+
+- See ./app/routes/__layout.tsx for an example of nested routes
+- See ./app/routes/__layout.tsx for an example of layout routes
+- See ./app/routes/__layout/flashcard.$flashcardId.tsx
+  for an example of parameterized routes
+
+=> See it in action here: https://flash-me.fly.dev/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Remix fundamentals
+
+- Introduction ✅
+- Loaders & useLoaderData ✅
+- Forms ✅
+- Actions & useActionData  ✅
+- Routes & nested routes  ✅
+
+
+For me personally, Remix is about making state changes and mutations easy.
+I want to avoid this: https://twitter.com/ryanflorence/status/1485672960266432512/photo/1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+THANK YOU very much for your time!
+
+Any questions?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+You can find me on Twitter @andrelandgraf94
+
+Please reach out!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

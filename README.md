@@ -6,6 +6,10 @@ Flash Me! Learn through rehearsal. Create and study with flashcards online.
 
 [Go to Flash Me](https://flash-me.fly.dev/) and start learning with flashcards today!
 
+## Presentation
+
+I gave a talk about ["Full stack web development with Remix"](https://www.youtube.com/watch?v=az9QZRSeuPM) at the React Jax's January 2022 meetup. I used Flash Me to explain some Remix fundamentals. You can find the presentation notes [here](./REACTJAX_WEB_DEV_WITH_REMIX_TALK.txt).
+
 ## Motivation <img src="./public/light-bulb.png" alt="light bulb" style="width: 30px; height: 30px;">
 
 Flashcards are a great way to rehearse and learn. I constantly hear about awesome things in YouTube videos, podcasts, on Twitter, or by talking to people and I just wanted to create a place for myself where I can quickly and easily create flashcards for the things I'm learning.
