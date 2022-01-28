@@ -29,7 +29,7 @@ export default function BaseLayout() {
     <div className="w-full min-h-screen flex flex-col">
       <header className="w-full">
         <nav className="w-full pt-5 px-5 flex mobile:flex-col justify-center items-center gap-5">
-          <LogoWithLink descriptionId="nav-logo" to="/" className="w-full max-w-sm xl:max-w-md mr-auto" />
+          <LogoWithLink className="w-full max-w-sm xl:max-w-md mr-auto" />
           {!user && githubAuthState !== GitHubAuthState.loading && <GitHubSignInButton />}
         </nav>
       </header>

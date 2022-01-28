@@ -1,8 +1,14 @@
-import type { SvgProps, IconLinkImplementation } from './icon';
+import type { SvgFC, IconLinkFC } from './icon';
 import { IconLink } from './icon';
 
-const LogoSvg: React.FC<SvgProps> = (props) => (
-  <svg viewBox="0 0 1505 378" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+const Logo: SvgFC = ({
+  title = 'Flash me logo',
+  description = 'Flash Me with a yellow background that looks like someone marked the text with a yellow marker.',
+  ...props
+}) => (
+  <svg viewBox="0 0 1505 378" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
+    <title>{title}</title>
+    {description && <desc>{description}</desc>}
     <path
       d="M71 88.3157L1432.23 88.3157"
       stroke="#FFFF1A"
@@ -29,9 +35,9 @@ const LogoSvg: React.FC<SvgProps> = (props) => (
   </svg>
 );
 
-const LogoWithLink: IconLinkImplementation = ({ svgProps, ...props }) => (
-  <IconLink {...props} label="Navigate to homepage" svgDescription="Flash Me">
-    <LogoSvg {...svgProps} />
+const LogoWithLink: IconLinkFC = ({ svgProps = {}, ...props }) => (
+  <IconLink {...props} label="Homepage" to="/">
+    <Logo {...svgProps} />
   </IconLink>
 );
 

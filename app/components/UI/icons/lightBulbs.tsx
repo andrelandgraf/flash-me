@@ -1,8 +1,19 @@
-import type { SvgProps, IconImplementation } from './icon';
-import { Icon } from './icon';
+import type { SvgFC } from './icon';
+import { defaultIconClassName } from './icon';
 
-const ShinyLightBulbSvg: React.FC<SvgProps> = (props) => (
-  <svg width="204" height="206" viewBox="0 0 204 206" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+const ShinyLightBulbIcon: SvgFC = ({ title = 'Shiny light bulb', description, className = '', ...props }) => (
+  <svg
+    width="204"
+    height="206"
+    viewBox="0 0 204 206"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    {...props}
+    className={`${defaultIconClassName} ${className}`}
+  >
+    <title>{title}</title>
+    {description && <desc>{description}</desc>}
     <path
       d="M149.513 88.8995C149.513 118.665 124.87 200.461 94.471 200.461C64.072 200.461 39.4287 118.665 39.4287 88.8995C39.4287 59.1344 64.072 35.0051 94.471 35.0051C124.87 35.0051 149.513 59.1344 149.513 88.8995Z"
       fill="#FFFF1A"
@@ -40,8 +51,19 @@ const ShinyLightBulbSvg: React.FC<SvgProps> = (props) => (
   </svg>
 );
 
-const LightBulbSvg: React.FC<SvgProps> = (props) => (
-  <svg width="100" height="155" viewBox="0 0 100 155" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+const LightBulbIcon: SvgFC = ({ title = 'Turned on light bulb', description, className = '', ...props }) => (
+  <svg
+    width="100"
+    height="155"
+    viewBox="0 0 100 155"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    {...props}
+    className={`${defaultIconClassName} ${className}`}
+  >
+    <title>{title}</title>
+    {description && <desc>{description}</desc>}
     <path
       d="M100 48.7013C100 75.5983 77.6142 149.513 50 149.513C22.3858 149.513 0 75.5983 0 48.7013C0 21.8043 22.3858 0 50 0C77.6142 0 100 21.8043 100 48.7013Z"
       fill="#FFFF1A"
@@ -67,18 +89,6 @@ const LightBulbSvg: React.FC<SvgProps> = (props) => (
       strokeLinecap="round"
     />
   </svg>
-);
-
-const ShinyLightBulbIcon: IconImplementation = ({ svgProps, ...props }) => (
-  <Icon {...props} svgDescription="Shiny Light Bulb">
-    <ShinyLightBulbSvg {...svgProps} />
-  </Icon>
-);
-
-const LightBulbIcon: IconImplementation = ({ svgProps, ...props }) => (
-  <Icon {...props} svgDescription="Light Bulb">
-    <LightBulbSvg {...svgProps} />
-  </Icon>
 );
 
 export { ShinyLightBulbIcon, LightBulbIcon };

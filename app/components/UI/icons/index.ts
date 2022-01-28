@@ -1,2 +1,3 @@
-export * from './lightBulb';
+export * from './lightBulbs';
 export * from './logo';
+export * from './socials';
