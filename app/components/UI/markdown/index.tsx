@@ -1,41 +1,14 @@
-import type { FC, ReactElement } from 'react';
-import { useMemo } from 'react';
-import { Fragment, createElement } from 'react';
-import unified from 'unified';
-import remarkParse from 'remark-parse';
-import remarkToRehype from 'remark-rehype';
-import type { Options as RehypeReactOptions } from 'rehype-react';
-import rehypeReact from 'rehype-react';
-
-type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
-type ReactOptions = PartialBy<RehypeReactOptions<typeof createElement>, 'createElement'>;
-
-// TODO npm i react-remark (v2) once esm supported and use sync hook from there
-export const useRemarkSync = (source: string, rehypeReactOptions: ReactOptions): ReactElement =>
-  unified()
-    .use(remarkParse)
-    .use(remarkToRehype)
-    .use(rehypeReact, {
-      createElement,
-      Fragment,
-      ...rehypeReactOptions,
-    } as RehypeReactOptions<typeof createElement>)
-    .processSync(source).result as ReactElement;
-
-interface MarkdownContainerProps {
+import type { FC, HTMLAttributes } from 'react';
+import type { ReyhpeOptions } from '~/hooks';
+import { useMarkdown } from '~/hooks';
+interface MarkdownContainerProps extends HTMLAttributes<HTMLDivElement> {
   source: string;
+  options?: ReyhpeOptions;
 }
 
-const MarkdownContainer: FC<MarkdownContainerProps> = ({ source }) => {
-  const html = useMemo(
-    () =>
-      useRemarkSync(source, {
-        components: {},
-      }),
-    [source],
-  );
-
-  return html;
+const MarkdownContainer: FC<MarkdownContainerProps> = ({ source, options, ...props }) => {
+  const html = useMarkdown(source, options);
+  return <article {...props}>{html}</article>;
 };
 
 export default MarkdownContainer;

@@ -4,7 +4,7 @@ import { useSearchParams } from 'remix';
 import { Form, useActionData, useTransition } from 'remix';
 import type { ActionData } from '~/actions/types';
 import { ariaClasses } from '~/utilities';
-import MarkdownContainer from '../UI/markdown';
+import FlashcardView from './markdown';
 import { H3 } from '~/components/UI/headings';
 import { Button } from '~/components/UI/buttons';
 import { GitHubSignInButton } from '~/components/UI/buttons/github';
@@ -55,11 +55,7 @@ const TextField: React.FC<TextFieldProps> = ({ id, name, label, defaultValue }) 
       </div>
       <div className="w-full flex flex-col gap-1 h-full">
         <H3>Preview</H3>
-        {dragValue && (
-          <div className="w-full h-full flex-grow bg-white border p-2">
-            <MarkdownContainer source={dragValue} />
-          </div>
-        )}
+        {dragValue && <FlashcardView source={dragValue} className="w-full h-full flex-grow bg-white border p-2" />}
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import { useState, useRef, useLayoutEffect } from 'react';
 import { Form } from 'remix';
 import type { Flashcard } from '@prisma/client';
-import MarkdownContainer from '~/components/UI/markdown';
+import FlashcardView from './markdown';
 import { Button, ButtonLink } from '~/components/UI/buttons';
 
 interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -38,14 +38,14 @@ const StackedCard: React.FC<StackProps> = ({
   return (
     <div {...props} className={`relative w-full max-w-5xl ${className}`} style={{ height: '50vh' }}>
       {canControl && (
-        <section
+        <div
           className="hidden xl:flex absolute -top-2 -left-1/4 w-full max-w-5xl items-start justify-start bg-teal-300 border border-white shadow-lg transform -rotate-6"
           style={{ height: '50vh' }}
         >
           <ButtonLink to="/create" className="m-2">
             Add new Flashcard
           </ButtonLink>
-        </section>
+        </div>
       )}
       <div className="absolute -top-4 -bottom-1 right-0 left-0 border border-white bg-gray-300 shadow-lg transform rotate-1" />
       <div className="absolute -top-2 -bottom-4 right-0 left-0 border border-white bg-blue-300 shadow-lg transform -rotate-2" />
@@ -61,10 +61,12 @@ const StackedCard: React.FC<StackProps> = ({
       <div className="absolute -top-1 bottom-0 right-0 -left-1 border border-white bg-amber-300 shadow-lg" />
       <div className="absolute -top-1 bottom-0 -right-1 left-0 border border-white bg-blue-300 shadow-lg" />
       <div className="absolute top-0 -bottom-1 right-0 left-0 border border-white bg-red-300 shadow-lg" />
-      <section className="relative h-full w-full bg-green-300 border border-white shadow-lg z-20">
-        <div id="flashcard-content" className="relative h-full w-full overflow-y-scroll py-14 px-2 lg:py-20 lg:px-5">
-          <MarkdownContainer source={showFront ? flashcard.front : flashcard.back} />
-        </div>
+      <div className="relative h-full w-full bg-green-300 border border-white shadow-lg z-20">
+        <FlashcardView
+          id="flashcard-content"
+          source={showFront ? flashcard.front : flashcard.back}
+          className="relative h-full w-full overflow-y-scroll py-14 px-2 lg:py-20 lg:px-5"
+        />
         <nav className="absolute top-2 left-2 right-2 flex flex-col">
           {showPrevNext ? (
             <div className="w-full flex gap-2">
@@ -112,16 +114,16 @@ const StackedCard: React.FC<StackProps> = ({
             </>
           )}
         </nav>
-      </section>
+      </div>
       {canControl && (
-        <section
+        <div
           className="flex xl:hidden w-full max-w-5xl items-start justify-start bg-teal-300 border border-white shadow-lg transform -translate-y-3/4 -mt-5 -rotate-3"
           style={{ height: '50vh' }}
         >
           <ButtonLink to="/create" className="mt-auto m-2">
             Add new Flashcard
           </ButtonLink>
-        </section>
+        </div>
       )}
     </div>
   );
