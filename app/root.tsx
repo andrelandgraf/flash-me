@@ -6,13 +6,15 @@ import { getMetaTags, focusClasses } from './utilities';
 import { GitHubAuthProvider } from '~/contexts/github';
 import { SkipNavLink } from '@reach/skip-nav';
 
+import twStyles from './styles/tailwind.css';
 import skipNavStyles from '@reach/skip-nav/styles.css';
-import styles from './styles/tailwind.css';
+import prismStyles from './styles/prism.css';
 
 export const links: LinksFunction = () => {
   return [
-    { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: twStyles },
     { rel: 'stylesheet', href: skipNavStyles },
+    { rel: 'stylesheet', href: prismStyles },
   ];
 };
 

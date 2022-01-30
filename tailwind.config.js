@@ -5,6 +5,7 @@ module.exports = {
       colors: {
         primary: '#ffff1a',
         secondary: 'rgba(255, 255, 26, 0.5)', // 50% opacity
+        bgCodeBlock: 'hsl(230, 1%, 98%)',
       },
       screens: {
         /**

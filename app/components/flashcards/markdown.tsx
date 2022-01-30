@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from 'react';
 import MarkdownContainer from '../UI/markdown';
+import CodeBlock from '../UI/markdown/codeBlock';
 
 /**
  * Flashcards support markup but we shouldn't allow H1 & H2 tags to save our SEO score and improve accessibility.
@@ -43,6 +44,14 @@ const OL: React.FC<HTMLAttributes<HTMLOListElement>> = ({ children, ...props }) 
   </ol>
 );
 
+const InlineCode: React.FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props }) => {
+  return (
+    <code {...props} className="py-1 px-1 border rounded-md bg-gray-100">
+      {children}
+    </code>
+  );
+};
+
 interface FlashcardViewProps extends HTMLAttributes<HTMLDivElement> {
   source: string;
 }
@@ -62,6 +71,8 @@ const FlashcardView = ({ source, className = '' }: FlashcardViewProps): React.Re
           h6: H456,
           ul: UL,
           ol: OL,
+          code: InlineCode,
+          pre: CodeBlock,
         },
       }}
     />

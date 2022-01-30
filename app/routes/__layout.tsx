@@ -11,6 +11,7 @@ import { LogoWithLink } from '~/components/UI/icons';
 import { Button } from '~/components/UI/buttons';
 import { GitHubSignInButton } from '~/components/UI/buttons/github';
 import StyledLink from '~/components/UI/links';
+import { GitHubLogo } from '~/components/UI/icons';
 
 interface LoaderData {
   user?: User;
@@ -37,18 +38,30 @@ export default function BaseLayout() {
         <SkipNavContent />
         <Outlet />
       </Main>
-      <footer className="mt-40 pb-5 px-5 text-sm flex flex-col justify-center text-center items-center gap-5">
+      <footer className="relative mt-40 pb-5 px-5 text-sm w-full flex flex-col-reverse justify-center text-center items-center gap-5 lg:flex-row lg:gap-0">
+        <p className="lg:absolute left-2 leading-loose">
+          <small>
+            <time>{new Date().getFullYear()}</time> © Andre Landgraf
+          </small>
+        </p>
         <p>
-          Developed with 💜 by <StyledLink to="https://twitter.com/AndreLandgraf94">Andre Landgraf</StyledLink>
+          Developed with 💜 by <StyledLink to="https://twitter.com/AndreLandgraf94">Andre Landgraf</StyledLink>. Code
+          can be found on&nbsp;
+          <StyledLink
+            to="https://github.com/andrelandgraf/flash-me"
+            className="inline-flex items-center justify-center gap-2"
+          >
+            Github <GitHubLogo width="15px" height="15px" />
+          </StyledLink>
+          .
         </p>
         {user && (
-          <Form method="post" action="/auth/logout">
+          <Form method="post" action="/auth/logout" className="lg:absolute right-2">
             <Button type="submit" disabled={!!transition.submission}>
               {transition.submission?.action === '/auth/logout' ? 'Logging out...' : 'Logout'}
             </Button>
           </Form>
         )}
-        <p>{new Date().getFullYear()} © Andre Landgraf</p>
       </footer>
     </div>
   );
