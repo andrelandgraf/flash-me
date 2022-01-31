@@ -36,10 +36,10 @@ const StackedCard: React.FC<StackProps> = ({
 
   const nextBtnRef = useRef<HTMLAnchorElement>(null);
   return (
-    <div {...props} className={`relative w-full max-w-5xl ${className}`} style={{ height: '50vh' }}>
+    <div {...props} className={`relative w-full xl:max-w-3xl 2xl:max-w-5xl ${className}`} style={{ height: '50vh' }}>
       {canControl && (
         <div
-          className="hidden xl:flex absolute -top-2 -left-1/4 w-full max-w-5xl items-start justify-start bg-teal-300 border border-white shadow-lg transform -rotate-6"
+          className="hidden xl:flex xl:absolute -top-2 -left-1/4 w-full xl:max-w-3xl 2xl:max-w-5xl items-start justify-start bg-teal-300 border border-white shadow-lg transform -rotate-6"
           style={{ height: '50vh' }}
         >
           <ButtonLink to="/create" className="m-2">
@@ -117,7 +117,7 @@ const StackedCard: React.FC<StackProps> = ({
       </div>
       {canControl && (
         <div
-          className="flex xl:hidden w-full max-w-5xl items-start justify-start bg-teal-300 border border-white shadow-lg transform -translate-y-3/4 -mt-5 -rotate-3"
+          className="flex xl:hidden w-full xl:max-w-3xl 2xl:max-w-5xl items-start justify-start bg-teal-300 border border-white shadow-lg transform -translate-y-3/4 -mt-5 -rotate-3"
           style={{ height: '50vh' }}
         >
           <ButtonLink to="/create" className="mt-auto m-2">

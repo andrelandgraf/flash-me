@@ -1,5 +1,5 @@
-import { createContext, useCallback, useEffect, useState } from 'react';
-import { useSubmit, useSearchParams, useTransition, useActionData } from 'remix';
+import { createContext, useCallback, useMemo, useState, useEffect } from 'react';
+import { useActionData, useSearchParams, useSubmit, useTransition } from 'remix';
 import { GithubAuthResState } from '~/actions/github';
 import { useEnv, useUser } from '~/hooks';
 
@@ -15,52 +15,28 @@ interface GitHubActionData {
   };
 }
 
-enum GitHubAuthState {
-  idle = 'idle',
-  loading = 'loading',
-  canceled = 'canceled',
-  email_required = 'email_required',
-  name_required = 'name_required',
-  internal_error = 'internal_error',
-  success = 'success',
-}
-
 interface GitHubAuthContext {
   signInWithGitHub: () => void;
-  githubAuthState: GitHubAuthState;
+  isLoading: boolean;
 }
 
 const GitHubAuthContext = createContext<GitHubAuthContext>({
   signInWithGitHub: () => undefined,
-  githubAuthState: GitHubAuthState.idle,
+  isLoading: false,
 });
 
 const GitHubAuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useUser();
   const transition = useTransition();
-  const submit = useSubmit();
-  const actionData = useActionData<GitHubActionData>();
   const { host, githubClientId } = useEnv();
-  const [searchParams] = useSearchParams();
-  const [githubAuthState, setGitHubAuthState] = useState<GitHubAuthState>(GitHubAuthState.idle);
 
-  useEffect(() => {
-    if (user) {
-      setGitHubAuthState(GitHubAuthState.success);
-    } else {
-      setGitHubAuthState(GitHubAuthState.idle);
-    }
+  const isLoading = useMemo(() => {
+    if (user) return false;
+    return !!transition.submission && transition.submission.action === '/auth/github';
   }, [user]);
-
-  useEffect(() => {
-    if (transition.submission && transition.submission.action === '/auth/github') {
-      setGitHubAuthState(GitHubAuthState.loading);
-    }
-  }, [transition.submission]);
 
   const signInWithGitHub = useCallback(() => {
     // we need user:email as the public profile might not have an email address
-    setGitHubAuthState(GitHubAuthState.loading);
     const scope = 'read:user user:email';
     const redirectUri = `${host}/auth/github`;
     const state = generateRandomStr();
@@ -73,19 +49,28 @@ const GitHubAuthProvider = ({ children }: { children: React.ReactNode }) => {
     window.location.href = url.toString();
   }, [host, githubClientId]);
 
-  useEffect(() => {
-    if (!actionData || actionData.github.status === 200) {
-      return;
-    }
-    if (actionData.github.state === GithubAuthResState.emailRequired) {
-      setGitHubAuthState(GitHubAuthState.email_required);
-    }
-    if (actionData.github.state === GithubAuthResState.nameRequired) {
-      setGitHubAuthState(GitHubAuthState.name_required);
-    }
-    setGitHubAuthState(GitHubAuthState.internal_error);
-  }, [actionData]);
+  return <GitHubAuthContext.Provider value={{ signInWithGitHub, isLoading }}>{children}</GitHubAuthContext.Provider>;
+};
 
+enum GitHubAuthErrorState {
+  canceled = 'canceled',
+  email_required = 'email_required',
+  name_required = 'name_required',
+  internal_error = 'internal_error',
+}
+
+/**
+ * This hook is used in the redirect url route of the GitHub auth flow.
+ */
+function useGithubErrorState() {
+  const submit = useSubmit();
+  const [searchParams] = useSearchParams();
+  const actionData = useActionData<GitHubActionData>();
+  const [githubAuthError, setGithubAuthError] = useState<GitHubAuthErrorState>();
+
+  /*
+   * Once GitHub redirects to our page, we use the code to submit to our own backend.
+   */
   useEffect(() => {
     const githubError = searchParams.get('error');
     const code = searchParams.get('code');
@@ -94,11 +79,11 @@ const GitHubAuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (githubError && githubError === 'access_denied') {
       window.localStorage.removeItem(stateKey);
-      setGitHubAuthState(GitHubAuthState.canceled);
+      setGithubAuthError(GitHubAuthErrorState.canceled);
       return;
     } else if (githubError || storedState !== state) {
       window.localStorage.removeItem(stateKey);
-      setGitHubAuthState(GitHubAuthState.internal_error);
+      setGithubAuthError(GitHubAuthErrorState.internal_error);
       return;
     }
 
@@ -110,18 +95,32 @@ const GitHubAuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       const reqData = { code };
-      submit(new URLSearchParams(reqData), { method: 'post', action: '/auth/github' });
+      submit(new URLSearchParams(reqData), { replace: true, method: 'post' });
     } catch (error) {
       console.error(error);
-      setGitHubAuthState(GitHubAuthState.internal_error);
+      setGithubAuthError(GitHubAuthErrorState.internal_error);
     }
   }, [searchParams]);
 
-  return (
-    <GitHubAuthContext.Provider value={{ signInWithGitHub, githubAuthState }}>{children}</GitHubAuthContext.Provider>
-  );
-};
+  /*
+   * Once our own backend returns a response, we handle it below.
+   */
+  useEffect(() => {
+    if (!actionData) {
+      return;
+    }
+    if (actionData.github.state === GithubAuthResState.emailRequired) {
+      setGithubAuthError(GitHubAuthErrorState.email_required);
+    }
+    if (actionData.github.state === GithubAuthResState.nameRequired) {
+      setGithubAuthError(GitHubAuthErrorState.name_required);
+    }
+    setGithubAuthError(GitHubAuthErrorState.internal_error);
+  }, [actionData]);
+
+  return githubAuthError;
+}
 
 export type { GitHubActionData };
 
-export { GitHubAuthProvider, GitHubAuthContext, GitHubAuthState };
+export { GitHubAuthProvider, GitHubAuthContext, GitHubAuthErrorState, useGithubErrorState };

@@ -4,7 +4,6 @@ import { Form, Outlet } from 'remix';
 import type { User } from '@prisma/client';
 import { SkipNavContent } from '@reach/skip-nav';
 import { getUserSession } from '~/session.server';
-import { GitHubAuthState } from '~/contexts/github';
 import { useAuthWithGitHub, useUser } from '~/hooks';
 import { Main } from '~/components/UI/layout';
 import { LogoWithLink } from '~/components/UI/icons';
@@ -23,7 +22,7 @@ export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> =
 };
 
 export default function BaseLayout() {
-  const { githubAuthState } = useAuthWithGitHub();
+  const { isLoading } = useAuthWithGitHub();
   const { user } = useUser();
   const transition = useTransition();
   return (
@@ -31,7 +30,7 @@ export default function BaseLayout() {
       <header className="w-full">
         <nav className="w-full pt-5 px-5 flex mobile:flex-col justify-center items-center gap-5">
           <LogoWithLink className="w-full max-w-sm xl:max-w-md mr-auto" />
-          {!user && githubAuthState !== GitHubAuthState.loading && <GitHubSignInButton />}
+          {!user && !isLoading && <GitHubSignInButton />}
         </nav>
       </header>
       <Main className="mb-auto">

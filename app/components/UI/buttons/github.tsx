@@ -1,4 +1,3 @@
-import { GitHubAuthState } from '~/contexts/github';
 import { useAuthWithGitHub } from '~/hooks';
 import { Button } from './index';
 import { GitHubLogo } from '../icons';
@@ -8,16 +7,11 @@ interface GitHubSignInButtonProps {
 }
 
 const GitHubSignInButton: React.FC<GitHubSignInButtonProps> = ({ primary = false }) => {
-  const { githubAuthState, signInWithGitHub } = useAuthWithGitHub();
+  const { signInWithGitHub, isLoading } = useAuthWithGitHub();
   return (
-    <Button
-      type="button"
-      onClick={signInWithGitHub}
-      disabled={githubAuthState === GitHubAuthState.loading}
-      primary={primary}
-    >
+    <Button type="button" onClick={signInWithGitHub} disabled={isLoading} primary={primary}>
       <GitHubLogo width="18px" height="18px" />
-      {githubAuthState === GitHubAuthState.loading ? 'Signing you in...' : 'Sign in/up with GitHub'}
+      {isLoading ? 'Signing you in...' : 'Sign in/up with GitHub'}
     </Button>
   );
 };

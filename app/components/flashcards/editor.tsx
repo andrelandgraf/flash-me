@@ -39,7 +39,7 @@ const TextField: React.FC<TextFieldProps> = ({ id, name, label, defaultValue }) 
   }, [value]);
 
   return (
-    <section className="w-screen m-auto max-w-xl xl:max-w-2xl 2xl:max-w-3xl flex flex-col 2xl:flex-row items-start justify-center gap-5 text-left">
+    <section className="w-screen m-auto max-w-xl xl:max-w-2xl 2xl:max-w-3xl flex flex-col items-start justify-center gap-5 text-left">
       <div className="w-full flex flex-col items-center justify-center gap-1">
         <label htmlFor={id} className="self-start">{`${label} (Markdown Supported)`}</label>
         <textarea
@@ -55,7 +55,7 @@ const TextField: React.FC<TextFieldProps> = ({ id, name, label, defaultValue }) 
       </div>
       <div className="w-full flex flex-col gap-1 h-full">
         <H3>Preview</H3>
-        {dragValue && <FlashcardView source={dragValue} className="w-full h-full flex-grow bg-white border p-2" />}
+        {dragValue && <FlashcardView source={dragValue} className="w-full h-full bg-white border p-2" />}
       </div>
     </section>
   );
