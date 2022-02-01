@@ -1,6 +1,7 @@
-import { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Form } from 'remix';
 import type { Flashcard } from '@prisma/client';
+import { useIsomorphicLayoutEffect } from '~/hooks';
 import FlashcardView from './markdown';
 import { Button, ButtonLink } from '~/components/UI/buttons';
 
@@ -26,11 +27,11 @@ const StackedCard: React.FC<StackProps> = ({
   const [showFront, setShowFront] = useState(true);
 
   /*
-   * Throws Remix warning but this useLayoutEffect is safe because
+   * This useLayoutEffect is safe because
    * the inital server-state = true and useLayoutEffect sets it to true,
    * so there is no mismatch between first server and client render.
    */
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     setShowFront(true);
   }, [flashcard]);
 
