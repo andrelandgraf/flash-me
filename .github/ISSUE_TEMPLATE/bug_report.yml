@@ -12,7 +12,7 @@ body:
 
         Before submitting a new bug/issue, please check the links below to see if there is a solution or question posted there already:
          - `flash-me`' Issues tab: https://github.com/andrelandgraf/flash-me/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc
-         - `flash-me`' closed issues tab: https://github.com/andrelandgraf/flash-me/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed
+         - `flash-me`' Closed issues tab: https://github.com/andrelandgraf/flash-me/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed
          - `flash-me`' Discussions tab: https://github.com/andrelandgraf/flash-me/discussions
 
         The more information you fill in, the better the community can help you.
@@ -21,20 +21,6 @@ body:
     attributes:
       label: Describe the bug
       description: Provide a clear and concise description of the challenge you are running into.
-    validations:
-      required: true
-  - type: input
-    id: link
-    attributes:
-      label: Your Example Website or App
-      description: |
-        Which website or app were you using when the bug happened?
-        Note:
-        - Your bug will may get fixed much faster if we can run your code and it doesn't have dependencies other than the `remix-run` npm package.
-        - To create a shareable code example you can use Stackblitz (https://stackblitz.com/). Please no localhost URLs.
-        - Please read these tips for providing a minimal example: https://stackoverflow.com/help/mcve.
-      placeholder: |
-        e.g. https://stackblitz.com/edit/...... OR Github Repo
     validations:
       required: true
   - type: textarea
